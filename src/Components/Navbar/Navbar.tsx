@@ -1,121 +1,4 @@
-// // done
-// "use client";
-
-// import { Search, User, UserPlus, Heart } from "lucide-react";
-// import { useState, useEffect } from "react";
-// import Link from "next/link";
-
-// export default function Navbar() {
-//   const [favoritesCount, setFavoritesCount] = useState(0);
-
-//   // Update favorites count
-//   useEffect(() => {
-//     const updateCount = () => {
-//       const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-//       setFavoritesCount(favorites.length);
-//     };
-
-//     updateCount();
-
-//     // Listen for storage changes
-//     window.addEventListener("storage", updateCount);
-
-//     // Custom event for same-tab updates
-//     window.addEventListener("favoritesUpdated", updateCount);
-
-//     return () => {
-//       window.removeEventListener("storage", updateCount);
-//       window.removeEventListener("favoritesUpdated", updateCount);
-//     };
-//   }, []);
-
-//   return (
-//     <nav className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//         <div className="flex justify-between items-center h-16">
-//           {/* Logo */}
-//           <div className="flex-shrink-0">
-//             <Link href="/">
-//               <h1 className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors cursor-pointer">
-//                 Minimalistic Library
-//               </h1>
-//             </Link>
-//           </div>
-
-//           {/* Search Bar */}
-//           <div className="flex-1 max-w-lg mx-8">
-//             <div className="relative">
-//               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-//                 <Search className="h-5 w-5 text-gray-400" />
-//               </div>
-//               <input
-//                 type="text"
-//                 placeholder="Search books, authors, or genres..."
-//                 className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-//               />
-//             </div>
-//           </div>
-
-//           {/* Auth Buttons */}
-//           <div className="flex items-center space-x-4">
-//             {/* Favorites Button (Icon only + count badge) */}
-//             <Link href="/favorites">
-//               <button className=" relative p-2 rounded-lg text-gray-600 hover:text-red-500 transition-colors">
-//                 <Heart size={24} />
-//                 {favoritesCount > 0 && (
-//                   <span className="absolute -top-1 -right-1   bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-//                     {favoritesCount}
-//                   </span>
-//                 )}
-//               </button>
-//             </Link>
-
-//             <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-//               <User className="h-4 w-4" />
-//               <span>Login</span>
-//             </button>
-//             <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-//               <UserPlus className="h-4 w-4" />
-//               <span>Sign Up</span>
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     </nav>
-//   );
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"use client"
+"use client";
 import { Search, Menu, X, BookOpen, User, Heart, UserPlus } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -149,7 +32,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-shrink-0">
             <div className="p-2 bg-gradient-to-r from-purple-600 to-teal-600 rounded-xl">
               <BookOpen className="h-6 w-6 text-white" />
             </div>
@@ -158,64 +41,54 @@ export default function Navbar() {
             </span>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a
-              href="#"
-              className="text-slate-300 hover:text-white transition-colors"
-            >
-              Home
-            </a>
-            <a
-              href="#"
-              className="text-slate-300 hover:text-white transition-colors"
-            >
-              Books
-            </a>
-            <a
-              href="#"
-              className="text-slate-300 hover:text-white transition-colors"
-            >
-              Categories
-            </a>
-            <a
-              href="#"
-              className="text-slate-300 hover:text-white transition-colors"
-            >
-              About
-            </a>
-          </div>
-
           {/* Search and Actions */}
-          <div className="hidden md:flex items-center gap-4">
-            <div className="relative">
+          <div className="hidden md:flex items-center gap-4 flex-1 justify-end">
+            {/* Navigation Links */}
+            <div className="flex items-center gap-6 mr-6">
+              <a
+                href="#"
+                className="text-slate-300 hover:text-white transition-colors"
+              >
+                More
+              </a>
+              <a
+                href="#"
+                className="text-slate-300 hover:text-white transition-colors"
+              >
+                About
+              </a>
+            </div>
+
+            <div className="relative flex-1 max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
               <input
                 type="text"
                 placeholder="Search books, authors, or genres..."
-                className="pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent backdrop-blur-sm"
+                className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent backdrop-blur-sm"
               />
             </div>
 
-            {/* Favorites Button with count */}
-            <button className="relative p-2 text-slate-300 hover:text-red-400 transition-colors">
-              <Heart className="h-5 w-5" />
-              {favoritesCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {favoritesCount}
-                </span>
-              )}
-            </button>
+            <div className="flex items-center gap-4 flex-shrink-0">
+              {/* Favorites Button with count */}
+              <button className="relative p-2 text-slate-300 hover:text-red-400 transition-colors">
+                <Heart className="h-5 w-5" />
+                {favoritesCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {favoritesCount}
+                  </span>
+                )}
+              </button>
 
-            <button className="flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 rounded-xl text-slate-300 hover:text-white hover:bg-white/20 transition-all">
-              <User className="h-4 w-4" />
-              <span>Login</span>
-            </button>
+              <button className="flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 rounded-xl text-slate-300 hover:text-white hover:bg-white/20 transition-all">
+                <User className="h-4 w-4" />
+                <span>Login</span>
+              </button>
 
-            <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-teal-600 text-white rounded-xl hover:scale-105 transition-transform">
-              <UserPlus className="h-4 w-4" />
-              <span>Sign Up</span>
-            </button>
+              <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-teal-600 text-white rounded-xl hover:scale-105 transition-transform">
+                <UserPlus className="h-4 w-4" />
+                <span>Sign Up</span>
+              </button>
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -239,19 +112,7 @@ export default function Navbar() {
                 href="#"
                 className="text-slate-300 hover:text-white transition-colors"
               >
-                Home
-              </a>
-              <a
-                href="#"
-                className="text-slate-300 hover:text-white transition-colors"
-              >
-                Books
-              </a>
-              <a
-                href="#"
-                className="text-slate-300 hover:text-white transition-colors"
-              >
-                Categories
+                More
               </a>
               <a
                 href="#"

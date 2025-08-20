@@ -1,59 +1,3 @@
-// export default function Header() {
-//   return (
-//     <div className="relative h-80 bg-gradient-to-r from-blue-900 via-purple-900 to-indigo-900 overflow-hidden">
-//       {/* Background Image Overlay */}
-//       <div
-//         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
-//         style={{
-//           backgroundImage: `url('https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')`,
-//         }}
-//       />
-
-//       {/* Content */}
-//       <div className="relative z-10 flex items-center justify-center h-full">
-//         <div className="text-center text-white">
-//           <h1 className="text-5xl md:text-6xl font-bold mb-4 tracking-tight">
-//             Welcome to
-//           </h1>
-//           <h2 className="text-4xl md:text-5xl font-light mb-6 text-blue-200">
-//             Minimalistic Bookstore
-//           </h2>
-//           <p className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto leading-relaxed">
-//             Discover your next favorite book in our curated collection
-//           </p>
-//         </div>
-//       </div>
-
-//       {/* Decorative Elements */}
-//       <div className="absolute top-10 left-10 w-20 h-20 bg-white bg-opacity-10 rounded-full blur-xl"></div>
-//       <div className="absolute bottom-10 right-10 w-32 h-32 bg-blue-400 bg-opacity-20 rounded-full blur-2xl"></div>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
 import { Sparkles, ArrowRight, Play } from "lucide-react";
 
 export default function Header() {
@@ -97,12 +41,7 @@ export default function Header() {
                 <span>Explore Books</span>
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </div>
-            </button>
-
-            <button className="group flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-2xl transition-all duration-300 hover:bg-white/20 hover:scale-105">
-              <Play className="w-5 h-5 transition-transform group-hover:scale-110" />
-              <span>Watch Trailer</span>
-            </button>
+            </button>           
           </div>
 
           {/* Stats */}
@@ -132,12 +71,12 @@ export default function Header() {
       </div>
 
       {/* Decorative elements */}
-      <div className="absolute top-1/2 left-10 w-2 h-2 bg-purple-400 rounded-full animate-ping"></div>
+      {/* <div className="absolute top-1/2 left-10 w-2 h-2 bg-purple-400 rounded-full animate-ping"></div>
       <div className="absolute top-1/3 right-20 w-3 h-3 bg-teal-400 rounded-full animate-pulse"></div>
       <div
         className="absolute bottom-1/4 left-1/3 w-1 h-1 bg-white rounded-full animate-ping"
         style={{ animationDelay: "1s" }}
-      ></div>
+      ></div> */}
     </header>
   );
 }

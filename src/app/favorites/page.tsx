@@ -1,164 +1,9 @@
-// "use client";
-
-// import { Heart } from "lucide-react";
-// import { useState, useEffect } from "react";
-// import BookCard from "../../Components/BookCard/BookCard";
-// import Navbar from "../../Components/Navbar/Navbar";
-
-// export default function FavoritesPage() {
-//   const [favorites, setFavorites] = useState([]);
-
-//   /* Defines a loadFavorites function that:
-
-//     Retrieves the "favorites" item from localStorage.
-
-//     Uses JSON.parse to convert the stored JSON string (or an empty array [] if none exists) into a JavaScript array.
-
-//     Updates the favorites state with the retrieved data using setFavorites.
-//  */
-//   useEffect(() => {
-//     const loadFavorites = () => {
-//       const savedFavorites = JSON.parse(
-//         localStorage.getItem("favorites") || "[]"
-//       );
-//       setFavorites(savedFavorites);
-//     };
-
-//     loadFavorites();
-
-//     /*  
-//         Adds an event listener for a custom "favoritesUpdated" event. When this event is triggered (e.g., when a book is added or removed from favorites), loadFavorites is called to refresh the favorites state.
-//     */
-//     window.addEventListener("favoritesUpdated", loadFavorites);
-
-//     return () => {
-//       window.removeEventListener("favoritesUpdated", loadFavorites);
-//     };
-//   }, []);
-
-//   return (
-//     <div className="min-h-screen bg-white">
-//       <Navbar />
-
-//       <div className="py-16 bg-gray-50">
-//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//           <div className="text-center mb-12">
-//             <div className="flex items-center justify-center space-x-3 mb-4">
-//               <Heart className="h-8 w-8 text-red-500 fill-red-500" />
-//               <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-//                 My Favorites
-//               </h1>
-//             </div>
-//             <p className="text-lg text-gray-600">
-//               {favorites.length === 0
-//                 ? "No favorites yet. Start adding books to your favorites!"
-//                 : `${favorites.length} book${
-//                     favorites.length !== 1 ? "s" : ""
-//                   } in your favorites`}
-//             </p>
-//           </div>
-
-//           {favorites.length === 0 ? (
-//             <div className="text-center py-16">
-//               <Heart className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-//               <h2 className="text-2xl font-bold text-gray-900 mb-4">
-//                 No Favorites Yet
-//               </h2>
-//               <p className="text-gray-600 text-lg mb-8">
-//                 Start adding books to your favorites by clicking the heart icon
-//                 on any book card.
-//               </p>
-//               <a
-//                 href="/"
-//                 className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 transform hover:scale-105"
-//               >
-//                 Browse Books
-//               </a>
-//             </div>
-//           ) : (
-//             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-//               {favorites.map((book: any, index: number) => (
-//                 <BookCard
-//                   key={`${book.title}-${index}`}
-//                   title={book.title}
-//                   author={book.author}
-//                   genre={book.genre}
-//                   rating={book.rating}
-//                   image={book.image}
-//                   price={book.price}
-//                 />
-//               ))}
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// try
 "use client"
 import { Heart, ArrowLeft, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
 import BookCard from "../../Components/BookCard/BookCard";
 import Navbar from "../../Components/Navbar/Navbar";
+import { useRouter } from "next/navigation"; 
 
 export default function FavoritesPage() {
   const [favorites, setFavorites] = useState([]);
@@ -180,6 +25,7 @@ export default function FavoritesPage() {
     };
   }, []);
 
+  const router = useRouter();
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
       {/* Animated background elements */}
@@ -254,7 +100,12 @@ export default function FavoritesPage() {
             <>
               {/* Back to Browse Button */}
               <div className="mb-12">
-                <button className="group flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-medium rounded-xl transition-all duration-300 hover:bg-white/20 hover:scale-105">
+                <button
+                  className="group flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-medium rounded-xl transition-all duration-300 hover:bg-white/20 hover:scale-105"
+                  onClick={() => {
+                    router.push("/");
+                  }}
+                >
                   <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
                   <span>Back to Browse</span>
                 </button>

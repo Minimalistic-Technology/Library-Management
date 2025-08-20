@@ -1,209 +1,4 @@
-// // done
-// import { Star, Heart } from "lucide-react";
-// import { useState, useEffect } from "react";
 
-
-// // Defines a TypeScript interface BookCardProps specifying the props for the component.
-// interface BookCardProps {
-//   title: string;
-//   author: string;
-//   genre: string;
-//   rating: number;
-//   image: string;
-//   price: string;
-// }
-
-// // Defines the BookCard component, destructuring its props
-// export default function BookCard({
-//   title,
-//   author,
-//   genre,
-//   rating,
-//   image,
-//   price,
-// }: BookCardProps) {
-//   // Creates an isFavorite state to track whether the book is a favorite, initialized to false
-//   const [isFavorite, setIsFavorite] = useState(false);
-
-//   /* Uses useEffect to check if the book is in favorites when the component mounts or when title changes.
-
-//   Retrieves the "favorites" array from localStorage.
-
-//   Sets isFavorite to true if a book with the same title exists in favorites */
-//   useEffect(() => {
-//     const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-//     setIsFavorite(favorites.some((fav: any) => fav.title === title));
-//   }, [title]);
-
-//   /* 
-//        Defines a toggleFavorite function to handle adding/removing the book from favorites.
-
-//         Retrieves the current favorites array from localStorage.
-
-//         Creates a book object with all props for storage.
-  
-//   */
-//   const toggleFavorite = () => {
-//     const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-//     const book = { title, author, genre, rating, image, price };
-
-//     /* If the book is already a favorite (isFavorite is true):
-
-//       Filters out the book from favorites based on title.
-
-//       Updates localStorage with the new array.
-//       Sets isFavorite to false.
-
-//       Dispatches the "favoritesUpdated" event to notify other components
-//  */
-//     if (isFavorite) {
-//       // Remove from favorites
-//       const updatedFavorites = favorites.filter(
-//         (fav: any) => fav.title !== title
-//       );
-//       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-//       setIsFavorite(false);
-//       window.dispatchEvent(new Event("favoritesUpdated"));
-//     } else {
-//     /* 
-//         If the book is not a favorite:
-
-//         Adds the book object to the favorites array.
-
-//         Updates localStorage with the new array.
-
-//         Sets isFavorite to true.
-        
-//         Dispatches the "favoritesUpdated" event.
-    
-//     */
-//       // Add to favorites
-//       const updatedFavorites = [...favorites, book];
-//       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-//       setIsFavorite(true);
-//       window.dispatchEvent(new Event("favoritesUpdated"));
-//     }
-//   };
-
-//   return (
-//     <div className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-white border border-gray-200 rounded-lg overflow-hidden">
-//       <div className="relative overflow-hidden">
-//         <img
-//           src={image}
-//           alt={title}
-//           className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-//         />
-//         <div className="absolute top-3 right-3">
-//           <button
-//             onClick={toggleFavorite}
-//             className="bg-white bg-opacity-90 hover:bg-opacity-100 p-2 rounded-lg transition-all hover:scale-110"
-//           >
-//             <Heart
-//               className={`h-4 w-4 transition-colors ${
-//                 isFavorite
-//                   ? "text-red-500 fill-red-500"
-//                   : "text-gray-600 hover:text-red-500"
-//               }`}
-//             />
-//           </button>
-//         </div>
-//       </div>
-
-//       <div className="p-6">
-//         <div className="mb-2">
-//           <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-medium">
-//             {genre}
-//           </span>
-//         </div>
-
-//         <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
-//           {title}
-//         </h3>
-
-//         <p className="text-gray-600 mb-3 text-sm">by {author}</p>
-
-//         <div className="flex items-center mb-4">
-//           <div className="flex items-center">
-//             {[...Array(5)].map((_, i) => (
-//               <Star
-//                 key={i}
-//                 className={`h-4 w-4 ${
-//                   i < Math.floor(rating)
-//                     ? "text-yellow-400 fill-current"
-//                     : "text-gray-300"
-//                 }`}
-//               />
-//             ))}
-//           </div>
-//           <span className="ml-2 text-sm text-gray-600">({rating})</span>
-//         </div>
-
-//         <div className="flex items-center justify-between">
-//           <span className="text-2xl font-bold text-gray-900">{price}</span>
-//           <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-//             Read
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 
 import { Star, Heart, BookOpen, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -289,8 +84,8 @@ export default function BookCard({
           {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
 
-          {/* Top actions */}
-          <div className="absolute top-4 right-4 flex gap-2">
+          {/* Top actions - only show on hover */}
+          <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
             <button
               onClick={toggleFavorite}
               className="p-2 bg-black/40 backdrop-blur-sm rounded-xl border border-white/10 transition-all hover:bg-black/60 hover:scale-110"
@@ -303,15 +98,10 @@ export default function BookCard({
                 }`}
               />
             </button>
-
-            {/* Quick preview button */}
-            <button className="p-2 bg-black/40 backdrop-blur-sm rounded-xl border border-white/10 transition-all hover:bg-black/60 hover:scale-110">
-              <BookOpen className="h-4 w-4 text-white/70 hover:text-purple-400" />
-            </button>
           </div>
 
-          {/* Genre badge */}
-          <div className="absolute top-4 left-4">
+          {/* Genre badge - only show on hover */}
+          <div className="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
             <span
               className={`px-3 py-1 text-xs font-semibold text-white rounded-full bg-gradient-to-r ${getGenreColor(
                 genre
@@ -322,10 +112,7 @@ export default function BookCard({
           </div>
 
           {/* Rating overlay */}
-          <div className="absolute bottom-4 left-4 flex items-center gap-1 px-3 py-1 bg-black/50 backdrop-blur-sm rounded-full">
-            <Star className="h-3 w-3 text-yellow-400 fill-yellow-400" />
-            <span className="text-white text-xs font-medium">{rating}</span>
-          </div>
+        
         </div>
 
         {/* Content section */}
@@ -353,7 +140,6 @@ export default function BookCard({
                 }}
               />
             ))}
-            <span className="ml-2 text-sm text-slate-400">({rating}/5)</span>
           </div>
 
           {/* Price and action */}
