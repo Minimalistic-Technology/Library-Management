@@ -153,7 +153,7 @@ export default function BookCard({
             <button className="group/btn relative px-6 py-3 bg-gradient-to-r from-purple-600 to-teal-600 text-white font-medium rounded-xl overflow-hidden transition-all hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
               <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-500"></div>
               <div className="relative flex items-center gap-2">
-                <Zap className="h-4 w-4 transition-transform group-hover/btn:rotate-12" />
+                {/* <Zap className="h-4 w-4 transition-transform group-hover/btn:rotate-12" /> */}
                 <span>Read Now</span>
               </div>
             </button>

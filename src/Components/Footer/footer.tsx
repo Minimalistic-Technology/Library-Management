@@ -22,7 +22,7 @@ export default function Footer() {
                 <BookOpen className="h-6 w-6 text-white" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-white via-purple-200 to-teal-200 bg-clip-text text-transparent">
-                BookVerse
+                Minimalistic Library
               </span>
             </div>
             <p className="text-slate-400 mb-6 leading-relaxed">

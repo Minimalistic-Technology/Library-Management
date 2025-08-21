@@ -22,7 +22,7 @@ export default function Header() {
             </span>
             <br />
             <span className="bg-gradient-to-r from-purple-400 via-teal-400 to-purple-400 bg-clip-text text-transparent">
-              Minimalistic Bookstore
+              Minimalistic Library
             </span>
           </h1>
 
