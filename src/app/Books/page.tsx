@@ -678,7 +678,7 @@ export default function BookCatalog() {
   };
 
   return (
-    <section className="relative z-10 py-10 min-h-screen">
+    <section className="relative z-10 py-10 min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-30 animate-blob"></div>
