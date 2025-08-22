@@ -1,22 +1,31 @@
-'use client'
-import React, { useState, useEffect } from 'react';
-import { BookOpen, Lock, Mail, Eye, EyeOff, IdCard, UserCheck } from 'lucide-react';
+"use client";
+import React, { useState, useEffect } from "react";
+import {
+  BookOpen,
+  Lock,
+  Mail,
+  Eye,
+  EyeOff,
+  IdCard,
+  UserCheck,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
+
 
 function LoginPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
-    studentName: '',
-    studentId: '',
-    email: '',
-    password: '',
-    rememberMe: false
+    studentName: "",
+    studentId: "",
+    email: "",
+    password: "",
+    rememberMe: false,
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Fix for autofill styling issues
   useEffect(() => {
-    // Add CSS to prevent autofill background change
-    const style = document.createElement('style');
+    const style = document.createElement("style");
     style.innerHTML = `
       input:-webkit-autofill,
       input:-webkit-autofill:hover, 
@@ -35,7 +44,7 @@ function LoginPage() {
       }
     `;
     document.head.appendChild(style);
-    
+
     return () => {
       document.head.removeChild(style);
     };
@@ -43,44 +52,41 @@ function LoginPage() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate login process
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    console.log('Login attempt:', formData);
+
+    // Simulate login process (no authentication, UI-only)
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    console.log("Login attempt:", formData);
     setIsLoading(false);
-    
-    // Here you would typically make an API call to authenticate
-    alert('Login functionality would be implemented here');
+
+    // Trigger onLogin to switch to Home component
+    router.push("/Home");
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
-      
       <div className="relative w-full max-w-sm">
-        {/* Main Card */}
         <div className="bg-white/10 backdrop-blur-lg rounded-lg shadow-2xl border border-white/20 p-4">
-          {/* Header */}
           <div className="text-center mb-4">
             <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-purple-400 to-pink-400 rounded-lg mb-2 shadow-lg">
               <BookOpen className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-2xl font-bold text-white mb-2">Library Management</h1>
+            <h1 className="text-2xl font-bold text-white mb-2">
+              Library Management
+            </h1>
             <p className="text-gray-300 text-sm">Student Login Portal</p>
           </div>
 
-          {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Student Name Field */}
             <div className="space-y-2">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -100,7 +106,6 @@ function LoginPage() {
               </div>
             </div>
 
-            {/* Student ID Field */}
             <div className="space-y-2">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -120,7 +125,6 @@ function LoginPage() {
               </div>
             </div>
 
-            {/* Email Field */}
             <div className="space-y-2">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -140,7 +144,6 @@ function LoginPage() {
               </div>
             </div>
 
-            {/* Password Field */}
             <div className="space-y-2">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -149,7 +152,7 @@ function LoginPage() {
                 <input
                   id="password"
                   name="password"
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   required
                   autoComplete="current-password"
                   value={formData.password}
@@ -162,12 +165,15 @@ function LoginPage() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
                 >
-                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5" />
+                  ) : (
+                    <Eye className="h-5 w-5" />
+                  )}
                 </button>
               </div>
             </div>
 
-            {/* Remember Me & Forgot Password */}
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
@@ -178,7 +184,10 @@ function LoginPage() {
                   onChange={handleInputChange}
                   className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded transition-colors"
                 />
-                <label htmlFor="rememberMe" className="ml-2 text-sm text-gray-300">
+                <label
+                  htmlFor="rememberMe"
+                  className="ml-2 text-sm text-gray-300"
+                >
                   Remember me
                 </label>
               </div>
@@ -190,7 +199,6 @@ function LoginPage() {
               </button>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={isLoading}
@@ -202,24 +210,24 @@ function LoginPage() {
                   Logging in...
                 </div>
               ) : (
-                'Login as Student'
+                "Login as Student"
               )}
             </button>
           </form>
-          
-          {/* Sign Up Link */}
+
           <div className="text-center mt-4">
             <p className="text-gray-300 text-sm">
-              Don't have an account?{' '}
-              <a href="#" className="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-200">
+              Don't have an account?{" "}
+              <a
+                href="/Signup"
+                className="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-200"
+              >
                 Sign up for free
               </a>
             </p>
           </div>
-          
         </div>
       </div>
-      
     </div>
   );
 }

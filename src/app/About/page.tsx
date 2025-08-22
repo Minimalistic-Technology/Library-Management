@@ -1,3 +1,4 @@
+import Navbar from "../../Components/Navbar/Navbar";
 import {
   Sparkles,
   BookOpen,
@@ -12,7 +13,10 @@ import {
 export default function About() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* Hero Section */}
+
+       <div className="relative z-10">
+        <Navbar />
+
       <section className="relative py-20 lg:py-32 overflow-hidden">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -250,7 +254,7 @@ export default function About() {
                   </p>
                 </div>
                 <div className="hidden lg:flex lg:justify-center">
-                  <div className="w-4 h-4 bg-purple-600 rounded-full border-4 border-slate-900"></div>
+                  {/* <div className="w-4 h-4 bg-purple-600 rounded-full border-4 border-slate-900"></div> */}
                 </div>
                 <div></div>
               </div>
@@ -287,7 +291,7 @@ export default function About() {
                   </p>
                 </div>
                 <div className="hidden lg:flex lg:justify-center">
-                  <div className="w-4 h-4 bg-gradient-to-r from-purple-600 to-teal-600 rounded-full border-4 border-slate-900"></div>
+                  {/* <div className="w-4 h-4 bg-gradient-to-r from-purple-600 to-teal-600 rounded-full border-4 border-slate-900"></div> */}
                 </div>
                 <div></div>
               </div>
@@ -320,6 +324,8 @@ export default function About() {
           </div>
         </div>
       </section>
+      </div>
     </div>
+  
   );
 }

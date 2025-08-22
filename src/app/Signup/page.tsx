@@ -364,7 +364,7 @@ function SignupPage() {
           <div className="text-center mt-4">
             <p className="text-gray-300 text-sm">
               Already have an account?{' '}
-              <a href="#" className="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-200">
+              <a href="/Login" className="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-200">
                 Sign in here
               </a>
             </p>

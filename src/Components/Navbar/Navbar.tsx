@@ -1,10 +1,13 @@
+
 "use client";
 import { Search, Menu, X, BookOpen, User, Heart, UserPlus } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [favoritesCount, setFavoritesCount] = useState(0);
+  const router = useRouter();
 
   // Update favorites count
   useEffect(() => {
@@ -27,6 +30,11 @@ export default function Navbar() {
     };
   }, []);
 
+  const handleUserClick = () => {
+    // You can customize this to show a dropdown menu or navigate to profile
+    router.push("/profile");
+  };
+
   return (
     <nav className="relative z-50 bg-black/20 backdrop-blur-xl border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,22 +52,22 @@ export default function Navbar() {
           {/* Search and Actions */}
           <div className="hidden md:flex items-center gap-4 flex-1 justify-end">
             {/* Navigation Links */}
-            <div className="flex items-center gap-6 mr-6">
+            <div className="flex items-center gap-6">
               <a
                 href="#"
                 className="text-slate-300 hover:text-white transition-colors"
               >
-                More
+                Books
               </a>
               <a
-                href="#"
+                href="/About"
                 className="text-slate-300 hover:text-white transition-colors"
               >
                 About
               </a>
             </div>
 
-            <div className="relative flex-1 max-w-md">
+            <div className="relative flex-1 max-w-lg mx-6">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
               <input
                 type="text"
@@ -79,14 +87,12 @@ export default function Navbar() {
                 )}
               </button>
 
-              <button className="flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 rounded-xl text-slate-300 hover:text-white hover:bg-white/20 transition-all">
-                <User className="h-4 w-4" />
-                <span>Login</span>
-              </button>
-
-              <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-teal-600 text-white rounded-xl hover:scale-105 transition-transform">
-                <UserPlus className="h-4 w-4" />
-                <span>Sign Up</span>
+              {/* User Icon Button */}
+              <button
+                onClick={handleUserClick}
+                className="p-2 text-slate-300 hover:text-white transition-colors"
+              >
+                <User className="h-5 w-5" />
               </button>
             </div>
           </div>
@@ -112,10 +118,10 @@ export default function Navbar() {
                 href="#"
                 className="text-slate-300 hover:text-white transition-colors"
               >
-                More
+                Books
               </a>
               <a
-                href="#"
+                href="/About"
                 className="text-slate-300 hover:text-white transition-colors"
               >
                 About
@@ -137,14 +143,13 @@ export default function Navbar() {
                     <span>Favorites ({favoritesCount})</span>
                   </button>
 
-                  <button className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors">
+                  {/* Mobile User Button */}
+                  <button
+                    className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors"
+                    onClick={handleUserClick}
+                  >
                     <User className="h-5 w-5" />
-                    <span>Login</span>
-                  </button>
-
-                  <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-teal-600 text-white rounded-xl hover:scale-105 transition-transform">
-                    <UserPlus className="h-4 w-4" />
-                    <span>Sign Up</span>
+                    <span>Profile</span>
                   </button>
                 </div>
               </div>
