@@ -204,6 +204,7 @@
 
 
 // 
+'use client'
 import { Star, Heart, BookOpen, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
 
