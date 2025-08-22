@@ -79,7 +79,6 @@ export default function App() {
       {/* All components with relative z-index to appear above background */}
       <div className="relative z-10">
         <BookPage/>
-        {/* <BookGrid/> */}
         {/* <Navbar />
         <Header />
         <BookSection />
