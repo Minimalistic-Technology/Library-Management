@@ -59,6 +59,7 @@ import Footer from "../Components/Footer/footer";
 import BookGrid from "../app/BookSection/page";
 import BookCard from "@/Components/BookCard/BookCard";
 import BookPage from "./Books/page";
+import UserProfilePage from "./UserProfile/page";
 
 export default function App() {
   return (
@@ -78,7 +79,8 @@ export default function App() {
 
       {/* All components with relative z-index to appear above background */}
       <div className="relative z-10">
-        <BookPage/>
+        <UserProfilePage/>
+        {/* <BookPage/> */}
         {/* <Navbar />
         <Header />
         <BookSection />
