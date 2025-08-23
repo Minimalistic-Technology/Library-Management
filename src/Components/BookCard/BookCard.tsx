@@ -2,6 +2,7 @@
 import { Star, Heart, BookOpen, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
 
+// BookCardProps → defines the data the card expects.
 interface BookCardProps {
   title: string;
   author: string;
@@ -11,6 +12,7 @@ interface BookCardProps {
   price: string;
 }
 
+// Defines the BookCard component, destructuring the props.
 export default function BookCard({
   title,
   author,
@@ -19,9 +21,34 @@ export default function BookCard({
   image,
   price,
 }: BookCardProps) {
+  // isFavorite: tracks whether the book is saved.
   const [isFavorite, setIsFavorite] = useState(false);
+  // isHovered: used for animations like star delay.
   const [isHovered, setIsHovered] = useState(false);
 
+  /* 
+    React runs the code inside this effect:
+
+    right after the component appears on the screen
+
+    and every time the book’s title changes.
+    So this effect is basically: “Whenever the title changes, check if that title is in favorites.”
+
+
+
+
+    favorites.some((fav: any) => fav.title === title)
+
+    .some checks if at least one item in the array matches the condition.
+
+    Condition here: fav.title === title
+    → Does the saved favorite’s title equal this card’s title?
+
+    If yes → returns true.
+
+    If no → returns false.
+
+*/
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
     setIsFavorite(favorites.some((fav: any) => fav.title === title));
@@ -31,6 +58,24 @@ export default function BookCard({
     const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
     const book = { title, author, genre, rating, image, price };
 
+    /* 
+    If the book is already a favorite:
+         favorites.filter(...) → removes this book from the list.
+
+          E.g., if favorites had ["1984", "The Hobbit"] and this card is "The Hobbit", after filter → ["1984"].
+
+          Save that new list back into localStorage.
+
+          Update React state (setIsFavorite(false) → makes the heart unfilled).
+
+          Tell the rest of the app something changed:
+
+          window.dispatchEvent(new Event("favoritesUpdated"));
+
+
+          → That event can be listened to by other components (like a “Favorites” page) so they refresh automatically.
+    
+    */
     if (isFavorite) {
       const updatedFavorites = favorites.filter(
         (fav: any) => fav.title !== title
@@ -111,8 +156,6 @@ export default function BookCard({
             </span>
           </div>
 
-          {/* Rating overlay */}
-        
         </div>
 
         {/* Content section */}
@@ -170,3 +213,48 @@ export default function BookCard({
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  FLOW OF THE TOGGLE FAVORITE  +  EXAMPLE
+
+      Click heart → toggleFavorite runs.
+
+      It grabs your saved favorites list from localStorage.
+
+      If the book is already in favorites → remove it.
+
+      If it’s not in favorites → add it.
+
+      Update localStorage so it “remembers” the change.
+
+      Update React state so the heart immediately changes.
+
+      Fire a custom "favoritesUpdated" event so other parts of your app know about the change.
+
+EXAMPLE : 
+
+    Suppose favorites = [ "1984", "Harry Potter" ]
+
+    You click heart on "The Hobbit"
+
+    Not favorite yet → add it → favorites now [ "1984", "Harry Potter", "The Hobbit" ]
+
+    Heart turns red.
+
+    Click again on "The Hobbit"
+
+    Already favorite → remove it → favorites back to [ "1984", "Harry Potter" ]
+
+    Heart turns white.
+*/

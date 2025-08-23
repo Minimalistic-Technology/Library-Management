@@ -1,24 +1,20 @@
 
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+/* 
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export default function RootLayout({ children, })
 
-export const metadata: Metadata = {
-  title: "Library Management System",
-  description: "A student library management portal",
-};
+    Make a function named RootLayout, and it will receive something called children (whatever you put inside this layout). Also, export it so Next.js can use it. 
+     
 
+         Readonly<{
+            children: React.ReactNode;
+          }>)
+     The function receives a prop object with a children field, whose type is React.ReactNode, and that prop object cannot be mutated.
+
+*/
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,11 +22,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body>
          {children}
-        
       </body>
     </html>
   );

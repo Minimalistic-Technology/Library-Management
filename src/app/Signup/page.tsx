@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight, CheckCircle, UserPlus, BookOpen, Calendar, Phone } from 'lucide-react';
+import {useRouter} from 'next/navigation';
 
 function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,6 +18,8 @@ function SignupPage() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0);
+
+  const router = useRouter();
 
   // Fix for autofill styling issues
   useEffect(() => {
@@ -345,6 +348,9 @@ function SignupPage() {
               type="submit"
               disabled={isLoading || !formData.agreeToTerms || formData.password !== formData.confirmPassword}
               className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-2 px-4 rounded-md transition-all duration-300 transform hover:scale-103 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2 mt-4"
+              onClick={()=>{
+                router.push("/Home")
+              }}
             >
               {isLoading ? (
                 <>

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import BookCard from "../../Components/BookCard/BookCard";
 import { Sparkles, TrendingUp } from "lucide-react";
@@ -63,6 +63,7 @@ const initialBooks = [
 export default function BookGrid() {
   const [displayedBooks, setDisplayedBooks] = useState(initialBooks);
   const [showingAll, setShowingAll] = useState(false);
+  /*  Initializes isLoading state to track the loading state of the "Load More" button. */
   const [isLoading, setIsLoading] = useState(false);
 
   const handleViewAllBooks = async () => {
@@ -109,12 +110,50 @@ export default function BookGrid() {
           {displayedBooks.map((book, index) => (
             <div
               key={`${book.title}-${index}`}
-              className="animate-fade-in"
-              style={{
-                animationDelay: `${(index % 8) * 100}ms`,
-                animationFillMode: "both",
-              }}
+
+              /*  Right now, you’re telling the browser:
+
+              “Delay some animation, then keep its final state.”
+
+              Problem: since animate-fade-in isn’t defined, there’s no animation to delay.
+
+              Result: nothing visibly animates — cards just “exist” immediately. */
+
+              // className="animate-fade-in"
+              // style={{
+              //   animationDelay: `${(index % 8) * 100}ms`,
+              //   animationFillMode: "both",
+              // }}
             >
+              {/*
+                    SPREAD OPERETOR
+                    
+                    const book = {
+
+                    title: "The Alchemist",
+                    author: "Paulo Coelho",
+                    year: 1988,
+                  };
+
+                  Then this:
+                  <BookCard {...book} />
+
+                is the same as writing:
+                <BookCard title="The Alchemist" author="Paulo Coelho" year={1988} />
+
+                So inside BookCard, you could access:
+
+                function BookCard({ title, author, year }) {
+                  return (
+                    <div>
+                      <h2>{title}</h2>
+                      <p>{author}</p>
+                      <span>{year}</span>
+                    </div>
+                  );
+                } */}
+
+
               <BookCard {...book} />
             </div>
           ))}
@@ -124,13 +163,16 @@ export default function BookGrid() {
         <div className="text-center">
           <button
             onClick={handleViewAllBooks}
+            // disabled={isLoading} → disables the button while loading.
             disabled={isLoading}
             className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-teal-600 text-white font-semibold rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 disabled:opacity-70 disabled:cursor-not-allowed"
           >
+            {/* Shine effect overlay ✨ */}
             <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
             <div className="relative flex items-center gap-3">
               {isLoading ? (
                 <>
+                  {/* loading spiner */}
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                   <span>Loading Amazing Books...</span>
                 </>
