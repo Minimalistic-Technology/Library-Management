@@ -8,9 +8,9 @@ import {
   EyeOff,
   IdCard,
   UserCheck,
+  Sparkles,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-
 
 function LoginPage() {
   const router = useRouter();
@@ -32,15 +32,15 @@ function LoginPage() {
       input:-webkit-autofill:focus, 
       input:-webkit-autofill:active {
         -webkit-background-clip: text;
-        -webkit-text-fill-color: #ffffff;
+        -webkit-text-fill-color: #4F200D;
         transition: background-color 5000s ease-in-out 0s;
-        box-shadow: inset 0 0 20px 20px rgba(255, 255, 255, 0.05);
+        box-shadow: inset 0 0 20px 20px rgba(255, 217, 61, 0.1);
       }
       
       input:-internal-autofill-selected {
-        background-color: rgba(255, 255, 255, 0.1) !important;
+        background-color: rgba(255, 217, 61, 0.1) !important;
         background-image: none !important;
-        color: rgb(255, 255, 255) !important;
+        color: #4F200D !important;
       }
     `;
     document.head.appendChild(style);
@@ -62,35 +62,82 @@ function LoginPage() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate login process (no authentication, UI-only)
+    // Simulate login process
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
     console.log("Login attempt:", formData);
     setIsLoading(false);
 
-    // Trigger onLogin to switch to Home component
     router.push("/Home");
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
-      <div className="relative w-full max-w-sm">
-        <div className="bg-white/10 backdrop-blur-lg rounded-lg shadow-2xl border border-white/20 p-4">
-          <div className="text-center mb-4">
-            <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-purple-400 to-pink-400 rounded-lg mb-2 shadow-lg">
-              <BookOpen className="w-8 h-8 text-white" />
+    <div
+      className="min-h-screen relative overflow-hidden flex items-center justify-center p-4"
+      style={{ backgroundColor: "#F6F1E9" }}
+    >
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div
+          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse"
+          style={{ backgroundColor: "#FFD93D20" }}
+        ></div>
+        <div
+          className="absolute top-3/4 right-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "2s", backgroundColor: "#FFD93D15" }}
+        ></div>
+        <div
+          className="absolute top-1/2 left-1/2 w-96 h-96 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "4s", backgroundColor: "#FFD93D10" }}
+        ></div>
+      </div>
+
+      <div className="relative z-10 w-full max-w-md">
+        <div
+          className="backdrop-blur-lg rounded-2xl shadow-2xl border p-8"
+          style={{ backgroundColor: "#FFD93D20", borderColor: "#FFD93D40" }}
+        >
+          <div className="text-center mb-8">
+           
+
+            <div
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-sm border mb-4"
+              style={{
+                backgroundColor: "#FFD93D30",
+                borderColor: "#FFD93D50",
+                color: "#4F200D",
+              }}
+            >
+              <Sparkles className="w-4 h-4" style={{ color: "#FFD93D" }} />
+              <span className="text-sm font-medium">Student Portal</span>
             </div>
-            <h1 className="text-2xl font-bold text-white mb-2">
-              Library Management
+
+            <h1
+              className="text-3xl font-bold mb-2"
+              style={{ color: "#4F200D" }}
+            >
+              Welcome Back
             </h1>
-            <p className="text-gray-300 text-sm">Student Login Portal</p>
+            <p className="text-sm" style={{ color: "#4F200D80" }}>
+              Sign in to access your library account
+            </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
+              <label
+                htmlFor="studentName"
+                className="text-sm font-medium"
+                style={{ color: "#4F200D" }}
+              >
+                Full Name
+              </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <UserCheck className="h-5 w-5 text-gray-400" />
+                  <UserCheck
+                    className="h-5 w-5"
+                    style={{ color: "#4F200D60" }}
+                  />
                 </div>
                 <input
                   id="studentName"
@@ -100,16 +147,29 @@ function LoginPage() {
                   autoComplete="name"
                   value={formData.studentName}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200 backdrop-blur-sm"
+                  className="w-full pl-10 pr-4 py-3 backdrop-blur-sm border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:border-transparent"
+                  style={{
+                    backgroundColor: "#FFD93D20",
+                    borderColor: "#FFD93D40",
+                    color: "#4F200D",
+                    focusRingColor: "#FFD93D",
+                  }}
                   placeholder="Enter your full name"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
+              <label
+                htmlFor="studentId"
+                className="text-sm font-medium"
+                style={{ color: "#4F200D" }}
+              >
+                Student ID
+              </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <IdCard className="h-5 w-5 text-gray-400" />
+                  <IdCard className="h-5 w-5" style={{ color: "#4F200D60" }} />
                 </div>
                 <input
                   id="studentId"
@@ -119,16 +179,28 @@ function LoginPage() {
                   autoComplete="username"
                   value={formData.studentId}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200 backdrop-blur-sm"
+                  className="w-full pl-10 pr-4 py-3 backdrop-blur-sm border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:border-transparent"
+                  style={{
+                    backgroundColor: "#FFD93D20",
+                    borderColor: "#FFD93D40",
+                    color: "#4F200D",
+                  }}
                   placeholder="Enter your student ID"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
+              <label
+                htmlFor="email"
+                className="text-sm font-medium"
+                style={{ color: "#4F200D" }}
+              >
+                Email Address
+              </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-gray-400" />
+                  <Mail className="h-5 w-5" style={{ color: "#4F200D60" }} />
                 </div>
                 <input
                   id="email"
@@ -138,16 +210,28 @@ function LoginPage() {
                   autoComplete="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200 backdrop-blur-sm"
+                  className="w-full pl-10 pr-4 py-3 backdrop-blur-sm border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:border-transparent"
+                  style={{
+                    backgroundColor: "#FFD93D20",
+                    borderColor: "#FFD93D40",
+                    color: "#4F200D",
+                  }}
                   placeholder="Enter your student email"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
+              <label
+                htmlFor="password"
+                className="text-sm font-medium"
+                style={{ color: "#4F200D" }}
+              >
+                Password
+              </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
+                  <Lock className="h-5 w-5" style={{ color: "#4F200D60" }} />
                 </div>
                 <input
                   id="password"
@@ -157,13 +241,19 @@ function LoginPage() {
                   autoComplete="current-password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200 backdrop-blur-sm"
+                  className="w-full pl-10 pr-12 py-3 backdrop-blur-sm border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:border-transparent"
+                  style={{
+                    backgroundColor: "#FFD93D20",
+                    borderColor: "#FFD93D40",
+                    color: "#4F200D",
+                  }}
                   placeholder="Enter your password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center transition-colors"
+                  style={{ color: "#4F200D60" }}
                 >
                   {showPassword ? (
                     <EyeOff className="h-5 w-5" />
@@ -182,18 +272,21 @@ function LoginPage() {
                   type="checkbox"
                   checked={formData.rememberMe}
                   onChange={handleInputChange}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded transition-colors"
+                  className="h-4 w-4 rounded transition-colors"
+                  style={{ accentColor: "#FFD93D" }}
                 />
                 <label
                   htmlFor="rememberMe"
-                  className="ml-2 text-sm text-gray-300"
+                  className="ml-2 text-sm"
+                  style={{ color: "#4F200D" }}
                 >
                   Remember me
                 </label>
               </div>
               <button
                 type="button"
-                className="text-sm text-purple-500 hover:text-purple-400 font-medium transition-colors"
+                className="text-sm font-medium transition-colors hover:opacity-80"
+                style={{ color: "#FFD93D" }}
               >
                 Forgot password?
               </button>
@@ -202,25 +295,48 @@ function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 px-4 rounded-md font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+              className="group w-full font-semibold py-3 px-4 rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2 shadow-lg"
+              style={{
+                backgroundColor: "#FFD93D",
+                color: "#4F200D",
+                boxShadow: "0 10px 25px -5px #FFD93D40",
+              }}
             >
               {isLoading ? (
                 <div className="flex items-center justify-center">
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
-                  Logging in...
+                  <div
+                    className="w-5 h-5 border-2 rounded-full animate-spin mr-2"
+                    style={{
+                      borderColor: "#4F200D40",
+                      borderTopColor: "#4F200D",
+                    }}
+                  ></div>
+                  Signing in...
                 </div>
               ) : (
-                "Login as Student"
+                <>
+                  <span>Sign In</span>
+                  <div
+                    className="w-5 h-5 rounded-full flex items-center justify-center transition-transform group-hover:translate-x-1"
+                    style={{ backgroundColor: "#4F200D20" }}
+                  >
+                    <BookOpen
+                      className="w-3 h-3"
+                      style={{ color: "#4F200D" }}
+                    />
+                  </div>
+                </>
               )}
             </button>
           </form>
 
-          <div className="text-center mt-4">
-            <p className="text-gray-300 text-sm">
+          <div className="text-center mt-6">
+            <p className="text-sm" style={{ color: "#4F200D80" }}>
               Don't have an account?{" "}
               <a
                 href="/Signup"
-                className="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-200"
+                className="font-medium transition-colors duration-200 hover:opacity-80"
+                style={{ color: "#FFD93D" }}
               >
                 Sign up for free
               </a>

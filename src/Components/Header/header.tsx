@@ -1,3 +1,4 @@
+"use client"
 import { Sparkles, ArrowRight, Play } from "lucide-react";
 
 export default function Header() {
@@ -7,7 +8,14 @@ export default function Header() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-purple-200 mb-8">
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-sm border mb-8"
+            style={{
+              backgroundColor: "#FFD93D20",
+              borderColor: "#FFD93D40",
+              color: "#4F200D",
+            }}
+          >
             <Sparkles className="w-4 h-4" />
             <span className="text-sm font-medium">
               Discover Amazing Stories
@@ -17,17 +25,16 @@ export default function Header() {
 
           {/* Main heading */}
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-8">
-            <span className="bg-gradient-to-r from-white via-purple-200 to-teal-200 bg-clip-text text-transparent">
-              Welcome to
-            </span>
+            <span style={{ color: "#4F200D" }}>Welcome to</span>
             <br />
-            <span className="bg-gradient-to-r from-purple-400 via-teal-400 to-purple-400 bg-clip-text text-transparent">
-              Minimalistic Library
-            </span>
+            <span style={{ color: "#FFD93D" }}>Minimalistic Library</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed mb-12">
+          <p
+            className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed mb-12"
+            style={{ color: "#4F200D80" }}
+          >
             Discover your next favorite book in our curated collection of
             literary masterpieces. From timeless classics to modern bestsellers,
             find your perfect read.
@@ -35,36 +42,61 @@ export default function Header() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-teal-600 text-white font-semibold rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25">
-              <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+            <button
+              className="group relative px-8 py-4 font-semibold rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+              style={{
+                backgroundColor: "#FFD93D",
+                color: "#4F200D",
+                boxShadow: "0 25px 50px -12px #FFD93D40",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = "0 25px 50px -12px #FFD93D60";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "0 25px 50px -12px #FFD93D40";
+              }}
+            >
+              <div
+                className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
+                style={{ backgroundColor: "#4F200D20" }}
+              ></div>
               <div className="relative flex items-center gap-3">
                 <span>Explore Books</span>
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </div>
-            </button>           
+            </button>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-20 max-w-2xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent mb-2">
+              <div
+                className="text-3xl md:text-4xl font-bold mb-2"
+                style={{ color: "#FFD93D" }}
+              >
                 10K+
               </div>
-              <div className="text-slate-400">Books Available</div>
+              <div style={{ color: "#4F200D80" }}>Books Available</div>
             </div>
 
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent mb-2">
+              <div
+                className="text-3xl md:text-4xl font-bold mb-2"
+                style={{ color: "#FFD93D" }}
+              >
                 50K+
               </div>
-              <div className="text-slate-400">Happy Readers</div>
+              <div style={{ color: "#4F200D80" }}>Happy Readers</div>
             </div>
 
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent mb-2">
+              <div
+                className="text-3xl md:text-4xl font-bold mb-2"
+                style={{ color: "#FFD93D" }}
+              >
                 4.9★
               </div>
-              <div className="text-slate-400">User Rating</div>
+              <div style={{ color: "#4F200D80" }}>User Rating</div>
             </div>
           </div>
         </div>

@@ -80,10 +80,10 @@ const RatingSlider: React.FC<RatingSliderProps> = ({
           key={i}
           className={`w-6 h-6 transition-all duration-200 ${
             filled
-              ? "text-yellow-400 fill-yellow-400"
+              ? "text-[#FFD93D] fill-[#FFD93D]"
               : halfFilled
-              ? "text-yellow-400 fill-yellow-400/50"
-              : "text-gray-400"
+              ? "text-[#FFD93D] fill-[#FFD93D]/50"
+              : "text-[#4F200D]/40"
           }`}
         />
       );
@@ -94,10 +94,10 @@ const RatingSlider: React.FC<RatingSliderProps> = ({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <span className="text-white font-medium">Minimum Rating</span>
+        <span className="text-[#4F200D] font-medium">Minimum Rating</span>
         <div className="flex items-center gap-2">
           <div className="flex items-center">{renderStars()}</div>
-          <span className="text-white font-bold text-lg min-w-[3rem] text-center">
+          <span className="text-[#4F200D] font-bold text-lg min-w-[3rem] text-center">
             {value === 1 ? "1.0" : value.toFixed(1)}+
           </span>
         </div>
@@ -107,28 +107,28 @@ const RatingSlider: React.FC<RatingSliderProps> = ({
         {/* Slider Track */}
         <div
           ref={sliderRef}
-          className="relative h-3 bg-white/20 rounded-full cursor-pointer backdrop-blur-sm border border-white/10"
+          className="relative h-3 bg-[#4F200D]/20 rounded-full cursor-pointer backdrop-blur-sm border border-[#4F200D]/10"
           onMouseDown={handleMouseDown}
         >
           {/* Slider Fill */}
           <div
-            className="absolute top-0 left-0 h-full bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full transition-all duration-200"
+            className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#FFD93D] to-[#FFD93D] rounded-full transition-all duration-200"
             style={{ width: `${percentage}%` }}
           />
 
           {/* Slider Handle */}
           <div
-            className={`absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-white rounded-full shadow-lg border-2 border-yellow-400 cursor-pointer transition-all duration-200 ${
+            className={`absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-white rounded-full shadow-lg border-2 border-[#FFD93D] cursor-pointer transition-all duration-200 ${
               isDragging ? "scale-125 shadow-xl" : "hover:scale-110"
             }`}
             style={{ left: `${percentage}%` }}
           >
-            <div className="absolute inset-1 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full" />
+            <div className="absolute inset-1 bg-gradient-to-br from-[#FFD93D] to-[#FFD93D] rounded-full" />
           </div>
         </div>
 
         {/* Tick Marks */}
-        <div className="absolute -bottom-8 left-0 right-0 flex justify-between text-xs text-purple-200">
+        <div className="absolute -bottom-8 left-0 right-0 flex justify-between text-xs text-[#4F200D]/70">
           {Array.from({ length: 9 }, (_, i) => {
             const tickValue = min + i * step;
             return (

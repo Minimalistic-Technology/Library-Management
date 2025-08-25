@@ -10,9 +10,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ onClose }) => {
     title: "",
     author: "",
     genre: "",
-    rating: "",
-    image:
-      "",
+    image: "",
     price: "",
     description: "",
   });
@@ -118,40 +116,6 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ onClose }) => {
             </div>
 
             <div>
-              <label className="block text-white font-medium mb-2">
-                Rating
-              </label>
-              <input
-                type="number"
-                name="rating"
-                value={formData.rating}
-                onChange={handleInputChange}
-                min="0"
-                max="5"
-                step="0.1"
-                className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                placeholder="0.0 - 5.0"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-white font-medium mb-2">
-                Image URL
-              </label>
-              <input
-                type="url"
-                name="image"
-                value={
-                  formData.image
-                }
-                onChange={handleInputChange}
-                className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                placeholder="https://example.com/image.jpg"                
-              />
-            </div>
-
-            <div>
               <label className="block text-white font-medium mb-2">Price</label>
               <input
                 type="number"
@@ -165,6 +129,20 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ onClose }) => {
                 required
               />
             </div>
+          </div>
+
+          <div>
+            <label className="block text-white font-medium mb-2">
+              Image URL
+            </label>
+            <input
+              type="url"
+              name="image"
+              value={formData.image}
+              onChange={handleInputChange}
+              className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              placeholder="https://example.com/image.jpg"
+            />
           </div>
 
           <div>

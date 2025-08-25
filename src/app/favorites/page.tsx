@@ -27,17 +27,17 @@ export default function FavoritesPage() {
 
   const router = useRouter();
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#F6F1E9' }}>
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse" style={{ backgroundColor: '#FFD93D20' }}></div>
         <div
-          className="absolute top-3/4 right-1/4 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "2s" }}
+          className="absolute top-3/4 right-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "2s", backgroundColor: '#FFD93D15' }}
         ></div>
         <div
-          className="absolute top-1/2 left-1/2 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "4s" }}
+          className="absolute top-1/2 left-1/2 w-96 h-96 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "4s", backgroundColor: '#FFD93D10' }}
         ></div>
       </div>
 
@@ -47,19 +47,20 @@ export default function FavoritesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header Section */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-purple-200 mb-6">
-              <Heart className="w-4 h-4 text-red-400 fill-red-400" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-sm border mb-6" 
+                 style={{ backgroundColor: '#FFD93D20', borderColor: '#FFD93D40', color: '#4F200D' }}>
+              <Heart className="w-4 h-4 fill-current" style={{ color: '#FFD93D' }} />
               <span className="text-sm font-medium">
                 Your Personal Collection
               </span>
               <Sparkles className="w-4 h-4" />
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white via-purple-100 to-teal-100 bg-clip-text text-transparent mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ color: '#4F200D' }}>
               My Favorites
             </h1>
 
-            <p className="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg max-w-3xl mx-auto leading-relaxed" style={{ color: '#4F200D80' }}>
               {favorites.length === 0
                 ? "Your favorite books collection is waiting to be filled with amazing stories"
                 : `${favorites.length} carefully selected book${
@@ -67,30 +68,34 @@ export default function FavoritesPage() {
                   } in your personal library`}
             </p>
 
-            <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-teal-400 mx-auto mt-8 rounded-full"></div>
+            <div className="w-24 h-1 mx-auto mt-8 rounded-full" style={{ backgroundColor: '#FFD93D' }}></div>
           </div>
 
           {favorites.length === 0 ? (
             <div className="text-center py-20">
               <div className="relative mb-8">
-                <div className="w-32 h-32 bg-gradient-to-r from-purple-600/20 to-teal-600/20 rounded-full mx-auto flex items-center justify-center backdrop-blur-sm border border-white/10">
-                  <Heart className="h-16 w-16 text-slate-400" />
+                <div className="w-32 h-32 rounded-full mx-auto flex items-center justify-center backdrop-blur-sm border"
+                     style={{ backgroundColor: '#FFD93D20', borderColor: '#FFD93D30' }}>
+                  <Heart className="h-16 w-16" style={{ color: '#4F200D60' }} />
                 </div>
-                <div className="absolute inset-0 w-32 h-32 bg-gradient-to-r from-purple-400 to-teal-400 rounded-full mx-auto blur-xl opacity-20"></div>
+                <div className="absolute inset-0 w-32 h-32 rounded-full mx-auto blur-xl opacity-20" 
+                     style={{ backgroundColor: '#FFD93D' }}></div>
               </div>
 
-              <h2 className="text-3xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent mb-6">
+              <h2 className="text-3xl font-bold mb-6" style={{ color: '#4F200D' }}>
                 No Favorites Yet
               </h2>
 
-              <p className="text-slate-300 text-lg mb-8 max-w-md mx-auto leading-relaxed">
+              <p className="text-lg mb-8 max-w-md mx-auto leading-relaxed" style={{ color: '#4F200D80' }}>
                 Start building your personal library by clicking the heart icon
                 on any book that catches your eye.
               </p>
 
-              <button className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-teal-600 text-white font-semibold rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25">
-                <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                <div className="relative flex items-center gap-3">
+              <button className="group relative px-8 py-4 text-white font-semibold rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                      style={{ backgroundColor: '#FFD93D', boxShadow: '0 25px 50px -12px #FFD93D40' }}>
+                <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
+                     style={{ backgroundColor: '#4F200D20' }}></div>
+                <div className="relative flex items-center gap-3" style={{ color: '#4F200D' }}>
                   <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
                   <span>Browse Books</span>
                 </div>
@@ -101,7 +106,14 @@ export default function FavoritesPage() {
               {/* Back to Browse Button */}
               <div className="mb-12">
                 <button
-                  className="group flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-medium rounded-xl transition-all duration-300 hover:bg-white/20 hover:scale-105"
+                  className="group flex items-center gap-3 px-6 py-3 backdrop-blur-sm border font-medium rounded-xl transition-all duration-300 hover:scale-105"
+                  style={{ 
+                    backgroundColor: '#FFD93D20', 
+                    borderColor: '#FFD93D40', 
+                    color: '#4F200D' 
+                  }}
+                  onMouseEnter={(e) => e.target.style.backgroundColor = '#FFD93D30'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = '#FFD93D20'}
                   onClick={() => {
                     router.push("/");
                   }}
@@ -136,17 +148,18 @@ export default function FavoritesPage() {
 
               {/* Stats Section */}
               <div className="mt-20 text-center">
-                <div className="inline-flex items-center gap-4 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl">
+                <div className="inline-flex items-center gap-4 px-8 py-4 backdrop-blur-sm border rounded-2xl"
+                     style={{ backgroundColor: '#FFD93D20', borderColor: '#FFD93D40' }}>
                   <div className="flex items-center gap-2">
-                    <Heart className="w-5 h-5 text-red-400 fill-red-400" />
-                    <span className="text-white font-medium">
+                    <Heart className="w-5 h-5 fill-current" style={{ color: '#FFD93D' }} />
+                    <span className="font-medium" style={{ color: '#4F200D' }}>
                       {favorites.length} Favorites
                     </span>
                   </div>
-                  <div className="w-px h-6 bg-white/20"></div>
+                  <div className="w-px h-6" style={{ backgroundColor: '#4F200D20' }}></div>
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-purple-400" />
-                    <span className="text-slate-300">Keep discovering</span>
+                    <Sparkles className="w-5 h-5" style={{ color: '#FFD93D' }} />
+                    <span style={{ color: '#4F200D80' }}>Keep discovering</span>
                   </div>
                 </div>
               </div>

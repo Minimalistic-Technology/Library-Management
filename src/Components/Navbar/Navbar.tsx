@@ -3,7 +3,7 @@
 import { Search, Menu, X, BookOpen, User, Heart, UserPlus } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
- 
+
 export default function Navbar() {
   /* Declares a state variable isMenuOpen (initially false) to track whether the mobile menu is open, with setIsMenuOpen to update it */
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,7 +33,7 @@ export default function Navbar() {
 
       In Tab A, you add a book to favorites → localStorage changes.
 
-      Tab B’s window.addEventListener("storage", ...) hears about it, so it runs updateCount() and updates the badge count.
+      Tab B's window.addEventListener("storage", ...) hears about it, so it runs updateCount() and updates the badge count.
 
       Without this, your navbar in Tab B would show stale data until you refreshed 
 
@@ -44,7 +44,7 @@ export default function Navbar() {
     
     The storage event does not fire in the same tab where the change happened.
 
-    That means if you click “Add to favorites” in Tab A, the navbar in Tab A wouldn’t notice right away.
+    That means if you click "Add to favorites" in Tab A, the navbar in Tab A wouldn't notice right away.
 
     To fix this, you (or some other part of your app) trigger a custom event like:
 
@@ -68,11 +68,14 @@ export default function Navbar() {
 
   const handleUserClick = () => {
     // You can customize this to show a dropdown menu or navigate to profile
-    router.push("/profile");
+    router.push("/Profile");
   };
 
   return (
-    <nav className="relative z-50 bg-black/20 backdrop-blur-xl border-b border-white/10">
+    <nav
+      className="relative z-50 backdrop-blur-xl border-b"
+      style={{ backgroundColor: "#F6F1E920", borderColor: "#FFD93D40" }}
+    >
       <div className="max-w-7xl  px-4 sm:px-6 lg:px-8">
         <div className="flex  justify-between h-16">
           {/* Logo */}
@@ -81,11 +84,16 @@ export default function Navbar() {
           By default, flex-shrink: 1 → items are allowed to shrink if needed.
 
           flex-shrink-0 → sets flex-shrink: 0 → this item will never shrink, even if the container is too small. */}
-          <div className="flex items-center gap-3 flex-shrink-0">
-            <div className="p-2 bg-gradient-to-r from-purple-600 to-teal-600 rounded-xl">
-              <BookOpen className="h-6 w-6 text-white" />
+          <div className="flex items-center gap-3 flex-shrink-0 cursor-pointer"  onClick={()=>{
+            router.push("/Home")
+          }}  >
+            <div
+              className="p-2 rounded-xl"
+              style={{ backgroundColor: "#FFD93D" }}
+            >
+              <BookOpen className="h-6 w-6" style={{ color: "#4F200D" }} />
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-white via-purple-200 to-teal-200 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold" style={{ color: "#4F200D" }} >
               Minimalistic Library
             </span>
           </div>
@@ -104,45 +112,73 @@ export default function Navbar() {
             <div className="flex items-center gap-6">
               <a
                 href="/Books"
-                className="text-slate-300 hover:text-white transition-colors"
+                className="transition-colors hover:opacity-80"
+                style={{ color: "#4F200D80" }}
+                onMouseEnter={(e) => (e.target.style.color = "#4F200D")}
+                onMouseLeave={(e) => (e.target.style.color = "#4F200D80")}
               >
                 Books
               </a>
               <a
                 href="/About"
-                className="text-slate-300 hover:text-white transition-colors"
+                className="transition-colors hover:opacity-80"
+                style={{ color: "#4F200D80" }}
+                onMouseEnter={(e) => (e.target.style.color = "#4F200D")}
+                onMouseLeave={(e) => (e.target.style.color = "#4F200D80")}
               >
                 About
               </a>
             </div>
 
-            {/* max-w-lg → caps the maximum width at 32rem (~512px), so it doesn’t get too wide on big screens */}
+            {/* max-w-lg → caps the maximum width at 32rem (~512px), so it doesn't get too wide on big screens */}
             <div className="relative flex-1 max-w-lg mx-6">
               {/* 
-              top-1/2 → vertically align it at 50% of parent’s height.
+              top-1/2 → vertically align it at 50% of parent's height.
 
               transform -translate-y-1/2 → shift upward by 50% of its own height → perfect vertical centering.
 
              */}
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+              <Search
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4"
+                style={{ color: "#4F200D60" }}
+              />
               <input
                 type="text"
                 placeholder="Search books, authors, or genres..."
-                className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2   backdrop-blur-sm"
+                className="w-full pl-10 pr-4 py-2 border rounded-xl focus:outline-none focus:ring-2 backdrop-blur-sm transition-all"
+                style={{
+                  backgroundColor: "#FFD93D20",
+                  borderColor: "#FFD93D40",
+                  color: "#4F200D",
+                }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = "#FFD93D";
+                  e.target.style.boxShadow = "0 0 0 2px #FFD93D40";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "#FFD93D40";
+                  e.target.style.boxShadow = "none";
+                }}
               />
             </div>
 
             <div className="flex items-center gap-4 flex-shrink-0">
               {/* Favorites Button with count */}
               <button
-                className="relative p-2 text-slate-300 hover:text-red-400 transition-colors"
+                className="relative p-2 transition-colors"
+                style={{ color: "#4F200D80" }}
+                onMouseEnter={(e) => (e.target.style.color = "#FFD93D")}
+                onMouseLeave={(e) => (e.target.style.color = "#4F200D80")}
                 onClick={() => {
                   router.push("favorites");
                 }}
               >
                 <Heart className="h-5 w-5" />
                 {favoritesCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span
+                    className="absolute -top-1 -right-1 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                    style={{ backgroundColor: "#FFD93D", color: "#4F200D" }}
+                  >
                     {favoritesCount}
                   </span>
                 )}
@@ -151,7 +187,10 @@ export default function Navbar() {
               {/* User Icon Button */}
               <button
                 onClick={handleUserClick}
-                className="p-2 text-slate-300 hover:text-white transition-colors"
+                className="p-2 transition-colors"
+                style={{ color: "#4F200D80" }}
+                onMouseEnter={(e) => (e.target.style.color = "#4F200D")}
+                onMouseLeave={(e) => (e.target.style.color = "#4F200D80")}
               >
                 <User className="h-5 w-5" />
               </button>
@@ -161,7 +200,10 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-slate-300 hover:text-white transition-colors"
+            className="md:hidden p-2 transition-colors"
+            style={{ color: "#4F200D80" }}
+            onMouseEnter={(e) => (e.target.style.color = "#4F200D")}
+            onMouseLeave={(e) => (e.target.style.color = "#4F200D80")}
           >
             {isMenuOpen ? (
               <X className="h-6 w-6" />
@@ -174,40 +216,76 @@ export default function Navbar() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           /* border-white/10 → the border color is white at 10% opacity. */
-          <div className="md:hidden py-4 border-t border-white/10">
+          <div
+            className="md:hidden py-4 border-t"
+            style={{ borderColor: "#FFD93D40" }}
+          >
             <div className="flex flex-col space-y-4">
               <a
                 href="#"
-                className="text-slate-300 hover:text-white transition-colors"
+                className="transition-colors"
+                style={{ color: "#4F200D80" }}
+                onMouseEnter={(e) => (e.target.style.color = "#4F200D")}
+                onMouseLeave={(e) => (e.target.style.color = "#4F200D80")}
               >
                 Books
               </a>
               <a
                 href="/About"
-                className="text-slate-300 hover:text-white transition-colors"
+                className="transition-colors"
+                style={{ color: "#4F200D80" }}
+                onMouseEnter={(e) => (e.target.style.color = "#4F200D")}
+                onMouseLeave={(e) => (e.target.style.color = "#4F200D80")}
               >
                 About
               </a>
 
-              <div className="pt-4 border-t border-white/10">
+              <div
+                className="pt-4 border-t"
+                style={{ borderColor: "#FFD93D40" }}
+              >
                 <div className="relative mb-4">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  <Search
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4"
+                    style={{ color: "#4F200D60" }}
+                  />
                   <input
                     type="text"
                     placeholder="Search books..."
-                    className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent backdrop-blur-sm"
+                    className="w-full pl-10 pr-4 py-2 border rounded-xl focus:outline-none focus:ring-2 backdrop-blur-sm transition-all"
+                    style={{
+                      backgroundColor: "#FFD93D20",
+                      borderColor: "#FFD93D40",
+                      color: "#4F200D",
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = "#FFD93D";
+                      e.target.style.boxShadow = "0 0 0 2px #FFD93D40";
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = "#FFD93D40";
+                      e.target.style.boxShadow = "none";
+                    }}
                   />
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  <button className="flex items-center gap-2 text-slate-300 hover:text-red-400 transition-colors">
+                  <button
+                    className="flex items-center gap-2 transition-colors"
+                    style={{ color: "#4F200D80" }}
+                    onMouseEnter={(e) => (e.target.style.color = "#FFD93D")}
+                    onMouseLeave={(e) => (e.target.style.color = "#4F200D80")}
+                  >
                     <Heart className="h-5 w-5" />
                     <span>Favorites ({favoritesCount})</span>
                   </button>
 
-                  {/* transition-colors : whenever a color-related property changes (like color, background-color, border-color, fill, stroke), don’t snap instantly—animate smoothly instead.*/}
+                  {/* transition-colors : whenever a color-related property changes (like color, background-color, border-color, fill, stroke), don't snap instantly—animate smoothly instead.*/}
                   <button
-                    className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors"
+                    className="flex items-center gap-2 transition-colors"
+                    style={{ color: "#4F200D80" }}
+                    onMouseEnter={(e) => (e.target.style.color = "#4F200D")}
+                    onMouseLeave={(e) => (e.target.style.color = "#4F200D80")}
                     onClick={handleUserClick}
                   >
                     <User className="h-5 w-5" />

@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { Eye, EyeOff, Mail, Lock, User, ArrowRight, CheckCircle, UserPlus, BookOpen, Calendar, Phone } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, ArrowRight, UserPlus, BookOpen, Calendar, Phone, Sparkles, Shield } from 'lucide-react';
 import {useRouter} from 'next/navigation';
 
 function SignupPage() {
@@ -21,9 +21,7 @@ function SignupPage() {
 
   const router = useRouter();
 
-  // Fix for autofill styling issues
   useEffect(() => {
-    // Add CSS to prevent autofill background change
     const style = document.createElement('style');
     style.innerHTML = `
       input:-webkit-autofill,
@@ -31,15 +29,15 @@ function SignupPage() {
       input:-webkit-autofill:focus, 
       input:-webkit-autofill:active {
         -webkit-background-clip: text;
-        -webkit-text-fill-color: #ffffff;
+        -webkit-text-fill-color: #4F200D;
         transition: background-color 5000s ease-in-out 0s;
-        box-shadow: inset 0 0 20px 20px rgba(255, 255, 255, 0.05);
+        box-shadow: inset 0 0 20px 20px rgba(255, 217, 61, 0.1);
       }
       
       input:-internal-autofill-selected {
-        background-color: rgba(255, 255, 255, 0.1) !important;
+        background-color: rgba(255, 217, 61, 0.1) !important;
         background-image: none !important;
-        color: rgb(255, 255, 255) !important;
+        color: #4F200D !important;
       }
     `;
     document.head.appendChild(style);
@@ -60,11 +58,11 @@ function SignupPage() {
   };
 
   const getPasswordStrengthColor = (strength: number) => {
-    if (strength <= 1) return 'bg-red-500';
-    if (strength <= 2) return 'bg-orange-500';
-    if (strength <= 3) return 'bg-yellow-500';
-    if (strength <= 4) return 'bg-blue-500';
-    return 'bg-green-500';
+    if (strength <= 1) return '#ef4444';
+    if (strength <= 2) return '#f97316';
+    if (strength <= 3) return '#eab308';
+    if (strength <= 4) return '#3b82f6';
+    return '#22c55e';
   };
 
   const getPasswordStrengthText = (strength: number) => {
@@ -83,10 +81,10 @@ function SignupPage() {
     }
     setIsLoading(true);
     
-    // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
       console.log('Signup attempted with:', formData);
+      router.push("/Home");
     }, 2000);
   };
 
@@ -103,29 +101,49 @@ function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center px-4 py-8">
-      <div className="relative w-full max-w-xl">
-        {/* Main Card */}
-        <div className="bg-white/10 backdrop-blur-lg rounded-lg shadow-2xl border border-white/20 p-4">
+    <div className="min-h-screen relative overflow-hidden flex items-center justify-center px-4 py-8" style={{ backgroundColor: '#F6F1E9' }}>
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse" style={{ backgroundColor: '#FFD93D20' }}></div>
+        <div
+          className="absolute top-3/4 right-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "2s", backgroundColor: '#FFD93D15' }}
+        ></div>
+        <div
+          className="absolute top-1/2 left-1/2 w-96 h-96 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "4s", backgroundColor: '#FFD93D10' }}
+        ></div>
+      </div>
+
+      <div className="relative z-10 w-full max-w-2xl">
+        <div className="backdrop-blur-lg rounded-2xl shadow-2xl border p-8" style={{ backgroundColor: '#FFD93D20', borderColor: '#FFD93D40' }}>
           {/* Header */}
-          <div className="text-center mb-4">
-            <div className="w-14 h-14 bg-gradient-to-r from-purple-400 to-pink-400 rounded-lg flex items-center justify-center mx-auto mb-2 shadow-lg">
-              <UserPlus className="w-8 h-8 text-white" />
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg" style={{ backgroundColor: '#FFD93D' }}>
+              <UserPlus className="w-8 h-8" style={{ color: '#4F200D' }} />
             </div>
-            <h1 className="text-2xl font-bold text-white mb-2">Create Account</h1>
-            <p className="text-gray-300 text-sm">Join us today and get started</p>
+
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-sm border mb-4" 
+                 style={{ backgroundColor: '#FFD93D30', borderColor: '#FFD93D50', color: '#4F200D' }}>
+              <Sparkles className="w-4 h-4" style={{ color: '#FFD93D' }} />
+              <span className="text-sm font-medium">Join Our Library</span>
+            </div>
+
+            <h1 className="text-3xl font-bold mb-2" style={{ color: '#4F200D' }}>Create Account</h1>
+            <p className="text-sm" style={{ color: '#4F200D80' }}>Join thousands of students in our digital library</p>
           </div>
+
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {/* Name Field */}
               <div className="space-y-2">
-                <label htmlFor="fullName" className="text-sm font-medium text-gray-300">
+                <label htmlFor="fullName" className="text-sm font-medium" style={{ color: '#4F200D' }}>
                   Full Name
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <User className="h-5 w-5 text-gray-400" />
+                    <User className="h-5 w-5" style={{ color: '#4F200D60' }} />
                   </div>
                   <input
                     id="fullName"
@@ -135,7 +153,12 @@ function SignupPage() {
                     autoComplete="name"
                     value={formData.fullName}
                     onChange={handleInputChange}
-                    className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200 backdrop-blur-sm"
+                    className="w-full pl-10 pr-4 py-3 backdrop-blur-sm border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:border-transparent"
+                    style={{ 
+                      backgroundColor: '#FFD93D20', 
+                      borderColor: '#FFD93D40', 
+                      color: '#4F200D'
+                    }}
                     placeholder="Full Name"
                   />
                 </div>
@@ -143,12 +166,12 @@ function SignupPage() {
 
               {/* Student ID Field */}
               <div className="space-y-2">
-                <label htmlFor="studentId" className="text-sm font-medium text-gray-300">
+                <label htmlFor="studentId" className="text-sm font-medium" style={{ color: '#4F200D' }}>
                   Student ID
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <BookOpen className="h-5 w-5 text-gray-400" />
+                    <BookOpen className="h-5 w-5" style={{ color: '#4F200D60' }} />
                   </div>
                   <input
                     id="studentId"
@@ -158,7 +181,12 @@ function SignupPage() {
                     autoComplete="off"
                     value={formData.studentId}
                     onChange={handleInputChange}
-                    className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200 backdrop-blur-sm"
+                    className="w-full pl-10 pr-4 py-3 backdrop-blur-sm border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:border-transparent"
+                    style={{ 
+                      backgroundColor: '#FFD93D20', 
+                      borderColor: '#FFD93D40', 
+                      color: '#4F200D'
+                    }}
                     placeholder="Student ID"
                   />
                 </div>
@@ -166,12 +194,12 @@ function SignupPage() {
 
               {/* Email Field */}
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium text-gray-300">
+                <label htmlFor="email" className="text-sm font-medium" style={{ color: '#4F200D' }}>
                   Email Address
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Mail className="h-5 w-5 text-gray-400" />
+                    <Mail className="h-5 w-5" style={{ color: '#4F200D60' }} />
                   </div>
                   <input
                     id="email"
@@ -181,7 +209,12 @@ function SignupPage() {
                     autoComplete="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200 backdrop-blur-sm"
+                    className="w-full pl-10 pr-4 py-3 backdrop-blur-sm border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:border-transparent"
+                    style={{ 
+                      backgroundColor: '#FFD93D20', 
+                      borderColor: '#FFD93D40', 
+                      color: '#4F200D'
+                    }}
                     placeholder="Email Address"
                   />
                 </div>
@@ -189,12 +222,12 @@ function SignupPage() {
 
               {/* Date of Birth Field */}
               <div className="space-y-2">
-                <label htmlFor="dateOfBirth" className="text-sm font-medium text-gray-300">
+                <label htmlFor="dateOfBirth" className="text-sm font-medium" style={{ color: '#4F200D' }}>
                   Date of Birth
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Calendar className="h-5 w-5 text-gray-400" />
+                    <Calendar className="h-5 w-5" style={{ color: '#4F200D60' }} />
                   </div>
                   <input
                     id="dateOfBirth"
@@ -204,19 +237,24 @@ function SignupPage() {
                     autoComplete="bday"
                     value={formData.dateOfBirth}
                     onChange={handleInputChange}
-                    className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200 backdrop-blur-sm"
+                    className="w-full pl-10 pr-4 py-3 backdrop-blur-sm border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:border-transparent"
+                    style={{ 
+                      backgroundColor: '#FFD93D20', 
+                      borderColor: '#FFD93D40', 
+                      color: '#4F200D'
+                    }}
                   />
                 </div>
               </div>
 
               {/* Phone Number Field */}
               <div className="space-y-2 md:col-span-2">
-                <label htmlFor="phoneNumber" className="text-sm font-medium text-gray-300">
+                <label htmlFor="phoneNumber" className="text-sm font-medium" style={{ color: '#4F200D' }}>
                   Phone Number
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Phone className="h-5 w-5 text-gray-400" />
+                    <Phone className="h-5 w-5" style={{ color: '#4F200D60' }} />
                   </div>
                   <input
                     id="phoneNumber"
@@ -226,22 +264,27 @@ function SignupPage() {
                     autoComplete="tel"
                     value={formData.phoneNumber}
                     onChange={handleInputChange}
-                    className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200 backdrop-blur-sm"
+                    className="w-full pl-10 pr-4 py-3 backdrop-blur-sm border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:border-transparent"
+                    style={{ 
+                      backgroundColor: '#FFD93D20', 
+                      borderColor: '#FFD93D40', 
+                      color: '#4F200D'
+                    }}
                     placeholder="Phone Number"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {/* Password Field */}
               <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-medium text-gray-300">
+                <label htmlFor="password" className="text-sm font-medium" style={{ color: '#4F200D' }}>
                   Password
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-gray-400" />
+                    <Lock className="h-5 w-5" style={{ color: '#4F200D60' }} />
                   </div>
                   <input
                     id="password"
@@ -251,12 +294,18 @@ function SignupPage() {
                     autoComplete="new-password"
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="w-full pl-10 pr-12 py-2 bg-white/10 border border-white/20 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200 backdrop-blur-sm"
+                    className="w-full pl-10 pr-12 py-3 backdrop-blur-sm border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:border-transparent"
+                    style={{ 
+                      backgroundColor: '#FFD93D20', 
+                      borderColor: '#FFD93D40', 
+                      color: '#4F200D'
+                    }}
                     placeholder="Create strong password"
                   />
                   <button
                     type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-200 transition-colors"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center transition-colors"
+                    style={{ color: '#4F200D60' }}
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -267,15 +316,18 @@ function SignupPage() {
                 {formData.password && (
                   <div className="mt-2">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs text-gray-300">Password Strength</span>
-                      <span className={`text-xs font-medium ${passwordStrength >= 4 ? 'text-green-400' : passwordStrength >= 3 ? 'text-blue-400' : passwordStrength >= 2 ? 'text-yellow-400' : 'text-red-400'}`}>
+                      <span className="text-xs" style={{ color: '#4F200D80' }}>Password Strength</span>
+                      <span className="text-xs font-medium" style={{ color: getPasswordStrengthColor(passwordStrength) }}>
                         {getPasswordStrengthText(passwordStrength)}
                       </span>
                     </div>
-                    <div className="w-full bg-gray-700 rounded-full h-2">
+                    <div className="w-full rounded-full h-2" style={{ backgroundColor: '#4F200D20' }}>
                       <div 
-                        className={`h-2 rounded-full transition-all duration-300 ${getPasswordStrengthColor(passwordStrength)}`}
-                        style={{ width: `${(passwordStrength / 5) * 100}%` }}
+                        className="h-2 rounded-full transition-all duration-300"
+                        style={{ 
+                          width: `${(passwordStrength / 5) * 100}%`,
+                          backgroundColor: getPasswordStrengthColor(passwordStrength)
+                        }}
                       ></div>
                     </div>
                   </div>
@@ -284,12 +336,12 @@ function SignupPage() {
 
               {/* Confirm Password Field */}
               <div className="space-y-2">
-                <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-300">
+                <label htmlFor="confirmPassword" className="text-sm font-medium" style={{ color: '#4F200D' }}>
                   Confirm Password
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-gray-400" />
+                    <Lock className="h-5 w-5" style={{ color: '#4F200D60' }} />
                   </div>
                   <input
                     id="confirmPassword"
@@ -299,29 +351,31 @@ function SignupPage() {
                     autoComplete="new-password"
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
-                    className={`w-full pl-10 pr-12 py-2 bg-white/10 border rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 backdrop-blur-sm ${
-                      formData.confirmPassword && formData.password !== formData.confirmPassword 
-                        ? 'border-red-400 focus:ring-red-400' 
-                        : 'border-white/20 focus:ring-purple-400'
-                    }`}
+                    className="w-full pl-10 pr-12 py-3 backdrop-blur-sm border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:border-transparent"
+                    style={{ 
+                      backgroundColor: '#FFD93D20', 
+                      borderColor: formData.confirmPassword && formData.password !== formData.confirmPassword ? '#ef4444' : '#FFD93D40', 
+                      color: '#4F200D'
+                    }}
                     placeholder="Confirm your password"
                   />
                   <button
                     type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-200 transition-colors"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center transition-colors"
+                    style={{ color: '#4F200D60' }}
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   >
                     {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
                 </div>
                 {formData.confirmPassword && formData.password !== formData.confirmPassword && (
-                  <p className="text-red-400 text-xs mt-1">Passwords do not match</p>
+                  <p className="text-xs mt-1" style={{ color: '#ef4444' }}>Passwords do not match</p>
                 )}
               </div>
             </div>
 
             {/* Terms Agreement */}
-            <div className="flex items-center justify-center mt-4">
+            <div className="flex items-start gap-3 p-4 rounded-xl backdrop-blur-sm border" style={{ backgroundColor: '#FFD93D30', borderColor: '#FFD93D50' }}>
               <input
                 id="agreeToTerms"
                 name="agreeToTerms"
@@ -329,53 +383,60 @@ function SignupPage() {
                 required
                 checked={formData.agreeToTerms}
                 onChange={handleInputChange}
-                className="h-4 w-4 text-purple-400 focus:ring-purple-400 border-gray-300 rounded bg-white/10 mt-1"
+                className="h-4 w-4 rounded mt-0.5"
+                style={{ accentColor: '#FFD93D' }}
               />
-              <label htmlFor="agreeToTerms" className="ml-3 text-sm text-gray-300">
-                I agree to the{' '}
-                <a href="#" className="text-purple-400 hover:text-purple-300 transition-colors duration-200">
-                  Terms of Service
-                </a>{' '}
-                and{' '}
-                <a href="#" className="text-purple-400 hover:text-purple-300 transition-colors duration-200">
-                  Privacy Policy
-                </a>
-              </label>
+              <div className="flex-1">
+                <label htmlFor="agreeToTerms" className="text-sm flex items-start gap-2" style={{ color: '#4F200D' }}>
+                  <Shield className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#FFD93D' }} />
+                  <span>
+                    I agree to the{' '}
+                    <a href="#" className="font-medium hover:opacity-80 transition-colors duration-200" style={{ color: '#FFD93D' }}>
+                      Terms of Service
+                    </a>{' '}
+                    and{' '}
+                    <a href="#" className="font-medium hover:opacity-80 transition-colors duration-200" style={{ color: '#FFD93D' }}>
+                      Privacy Policy
+                    </a>
+                  </span>
+                </label>
+              </div>
             </div>
 
             {/* Submit Button */}
             <button
               type="submit"
               disabled={isLoading || !formData.agreeToTerms || formData.password !== formData.confirmPassword}
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-2 px-4 rounded-md transition-all duration-300 transform hover:scale-103 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2 mt-4"
-              onClick={()=>{
-                router.push("/Home")
+              className="group w-full font-semibold py-4 px-4 rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2 shadow-lg mt-6"
+              style={{ 
+                backgroundColor: '#FFD93D', 
+                color: '#4F200D',
+                boxShadow: '0 10px 25px -5px #FFD93D40'
               }}
             >
               {isLoading ? (
                 <>
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  <div className="w-5 h-5 border-2 rounded-full animate-spin" style={{ borderColor: '#4F200D40', borderTopColor: '#4F200D' }}></div>
                   <span>Creating Account...</span>
                 </>
               ) : (
                 <>
                   <span>Create Account</span>
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </>
               )}
             </button>
           </form>
 
           {/* Sign In Link */}
-          <div className="text-center mt-4">
-            <p className="text-gray-300 text-sm">
+          <div className="text-center mt-6">
+            <p className="text-sm" style={{ color: '#4F200D80' }}>
               Already have an account?{' '}
-              <a href="/Login" className="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-200">
+              <a href="/Login" className="font-medium transition-colors duration-200 hover:opacity-80" style={{ color: '#FFD93D' }}>
                 Sign in here
               </a>
             </p>
           </div>
-          
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-
+// new theme 
 import { Star, Heart, BookOpen, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -10,6 +10,8 @@ interface BookCardProps {
   rating: number;
   image: string;
   price: string;
+  description: string;
+  onBookClick: (book: BookCardProps) => void; // Add click handler prop
 }
 
 // Defines the BookCard component, destructuring the props.
@@ -20,6 +22,8 @@ export default function BookCard({
   rating,
   image,
   price,
+  description,
+  onBookClick,
 }: BookCardProps) {
   // isFavorite: tracks whether the book is saved.
   const [isFavorite, setIsFavorite] = useState(false);
@@ -31,8 +35,8 @@ export default function BookCard({
 
     right after the component appears on the screen
 
-    and every time the book’s title changes.
-    So this effect is basically: “Whenever the title changes, check if that title is in favorites.”
+    and every time the book's title changes.
+    So this effect is basically: "Whenever the title changes, check if that title is in favorites."
 
 
 
@@ -42,7 +46,7 @@ export default function BookCard({
     .some checks if at least one item in the array matches the condition.
 
     Condition here: fav.title === title
-    → Does the saved favorite’s title equal this card’s title?
+    → Does the saved favorite's title equal this card's title?
 
     If yes → returns true.
 
@@ -54,9 +58,10 @@ export default function BookCard({
     setIsFavorite(favorites.some((fav: any) => fav.title === title));
   }, [title]);
 
-  const toggleFavorite = () => {
+  const toggleFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent card click when clicking heart
     const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-    const book = { title, author, genre, rating, image, price };
+    const book = { title, author, genre, rating, image, price, description };
 
     /* 
     If the book is already a favorite:
@@ -73,7 +78,7 @@ export default function BookCard({
           window.dispatchEvent(new Event("favoritesUpdated"));
 
 
-          → That event can be listened to by other components (like a “Favorites” page) so they refresh automatically.
+          → That event can be listened to by other components (like a "Favorites" page) so they refresh automatically.
     
     */
     if (isFavorite) {
@@ -91,6 +96,11 @@ export default function BookCard({
     }
   };
 
+  // Handle card click to open modal
+  const handleCardClick = () => {
+    onBookClick({ title, author, genre, rating, image, price, description, onBookClick });
+  };
+
   const getGenreColor = (genre: string) => {
     const colors = {
       Classic: "from-amber-400 to-orange-500",
@@ -105,19 +115,28 @@ export default function BookCard({
 
   return (
     <div
-      className="group relative"
+      className="group relative cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleCardClick}
     >
       {/* Glow effect on hover */}
       <div
-        className={`absolute -inset-1 bg-gradient-to-r ${getGenreColor(
-          genre
-        )} rounded-3xl blur-lg opacity-0 group-hover:opacity-30 transition-all duration-500`}
+        className={`absolute -inset-1 rounded-3xl blur-lg opacity-0 group-hover:opacity-30 transition-all duration-500`}
+        style={{ backgroundColor: "#FFD93D40" }}
       ></div>
 
       {/* Main card */}
-      <div className="relative bg-slate-800/60 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden transition-all duration-500 hover:border-white/20 hover:bg-slate-800/80">
+      <div
+        className="relative backdrop-blur-xl border rounded-3xl overflow-hidden transition-all duration-500 hover:scale-105"
+        style={{
+          //  backgroundColor: '#F6F1E9E6',
+          backgroundColor: "#FFFFFFE6",
+          borderColor: "#FFD93D40",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#FFD93D")}
+        onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#FFD93D40")}
+      >
         {/* Image section with overlay */}
         <div className="relative overflow-hidden">
           <img
@@ -127,20 +146,33 @@ export default function BookCard({
           />
 
           {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
           {/* Top actions - only show on hover */}
           <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
             <button
               onClick={toggleFavorite}
-              className="p-2 bg-black/40 backdrop-blur-sm rounded-xl border border-white/10 transition-all hover:bg-black/60 hover:scale-110"
+              className="p-2 backdrop-blur-sm rounded-xl border transition-all hover:scale-110"
+              style={{
+                backgroundColor: "#F6F1E980",
+                borderColor: "#FFD93D40",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "#FFD93D40";
+                e.currentTarget.style.borderColor = "#FFD93D";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "#F6F1E980";
+                e.currentTarget.style.borderColor = "#FFD93D40";
+              }}
             >
               <Heart
                 className={`h-4 w-4 transition-all ${
-                  isFavorite
-                    ? "text-red-400 fill-red-400 scale-110"
-                    : "text-white/70 hover:text-red-400"
+                  isFavorite ? "fill-current scale-110" : "hover:fill-current"
                 }`}
+                style={{
+                  color: isFavorite ? "#FFD93D" : "#4F200D80",
+                }}
               />
             </button>
           </div>
@@ -148,24 +180,29 @@ export default function BookCard({
           {/* Genre badge - only show on hover */}
           <div className="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
             <span
-              className={`px-3 py-1 text-xs font-semibold text-white rounded-full bg-gradient-to-r ${getGenreColor(
+              className={`px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${getGenreColor(
                 genre
               )} shadow-lg`}
+              style={{ color: "white" }}
             >
               {genre}
             </span>
           </div>
-
         </div>
 
         {/* Content section */}
         <div className="p-6 space-y-4">
           <div>
-            <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-300 group-hover:to-teal-300 group-hover:bg-clip-text transition-all duration-300">
+            <h3
+              className="text-xl font-bold mb-2 line-clamp-2 transition-all duration-300"
+              style={{ color: "#4F200D" }}
+            >
               {title}
             </h3>
 
-            <p className="text-slate-400 text-sm font-medium">by {author}</p>
+            <p className="text-sm font-medium" style={{ color: "#4F200D80" }}>
+              by {author}
+            </p>
           </div>
 
           {/* Star rating */}
@@ -174,11 +211,10 @@ export default function BookCard({
               <Star
                 key={i}
                 className={`h-4 w-4 transition-all duration-200 ${
-                  i < Math.floor(rating)
-                    ? "text-yellow-400 fill-yellow-400"
-                    : "text-slate-600"
+                  i < Math.floor(rating) ? "fill-current" : ""
                 }`}
                 style={{
+                  color: i < Math.floor(rating) ? "#FFD93D" : "#4F200D40",
                   animationDelay: isHovered ? `${i * 100}ms` : "0ms",
                 }}
               />
@@ -188,13 +224,32 @@ export default function BookCard({
           {/* Price and action */}
           <div className="flex items-center justify-between pt-2">
             <div className="flex flex-col">
-              <span className="text-2xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold" style={{ color: "#4F200D" }}>
                 {price}
               </span>
             </div>
 
-            <button className="group/btn relative px-6 py-3 bg-gradient-to-r from-purple-600 to-teal-600 text-white font-medium rounded-xl overflow-hidden transition-all hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
-              <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-500"></div>
+            <button
+              className="group/btn relative px-6 py-3 font-medium rounded-xl overflow-hidden transition-all hover:scale-105 hover:shadow-lg"
+              style={{
+                backgroundColor: "#FFD93D",
+                color: "#4F200D",
+                boxShadow: "0 10px 25px -5px #FFD93D40",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = "0 20px 40px -10px #FFD93D60";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "0 10px 25px -5px #FFD93D40";
+              }}
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent card click when clicking button
+              }}
+            >
+              <div
+                className="absolute inset-0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-500"
+                style={{ backgroundColor: "#4F200D20" }}
+              ></div>
               <div className="relative flex items-center gap-2">
                 {/* <Zap className="h-4 w-4 transition-transform group-hover/btn:rotate-12" /> */}
                 <span>Read Now</span>
@@ -234,9 +289,9 @@ export default function BookCard({
 
       If the book is already in favorites → remove it.
 
-      If it’s not in favorites → add it.
+      If it's not in favorites → add it.
 
-      Update localStorage so it “remembers” the change.
+      Update localStorage so it "remembers" the change.
 
       Update React state so the heart immediately changes.
 

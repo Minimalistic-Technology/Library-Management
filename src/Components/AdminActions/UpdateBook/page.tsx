@@ -188,20 +188,22 @@ const UpdateBookForm: React.FC<UpdateBookFormProps> = ({ onClose }) => {
 
                 <div>
                   <label className="block text-white font-medium mb-2">
-                    Rating
+                    Rating (Read Only)
                   </label>
                   <input
                     type="number"
                     name="rating"
                     value={formData.rating}
-                    onChange={handleInputChange}
                     min="0"
                     max="5"
                     step="0.1"
-                    className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    disabled
+                    className="w-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3 text-slate-400 cursor-not-allowed opacity-60"
                     placeholder="0.0 - 5.0"
-                    required
                   />
+                  <p className="text-xs text-slate-400 mt-1">
+                    Rating cannot be modified
+                  </p>
                 </div>
 
                 <div>
